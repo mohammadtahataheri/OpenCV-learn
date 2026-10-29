@@ -1,40 +1,91 @@
-# OpenCV Learn 🔍
+# 🅿️ OpenCV Learn
 
-**Learning Computer Vision with Python and OpenCV.**
+### Real-Time Parking Sign Detection with Python & OpenCV
 
-Welcome to **OpenCV-learn**! 🚀 This repository documents my journey into computer vision using Python, OpenCV, and NumPy through practical coding examples.
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8?logo=opencv&logoColor=white)](https://opencv.org/)
+[![NumPy](https://img.shields.io/badge/NumPy-Numerical%20Computing-013243?logo=numpy&logoColor=white)](https://numpy.org/)
+[![Status](https://img.shields.io/badge/Status-In%20Development-orange)](https://github.com/mohammadtahataheri/OpenCV-learn)
 
-The goal is to learn image processing techniques, understand how computer vision algorithms work, and build a foundation for more advanced projects.
+**OpenCV Learn** is a practical computer vision project that explores real-time image processing and template matching using Python, OpenCV, and NumPy.
 
-## 📌 Current Features
+The current implementation uses a webcam to search for predefined parking-related signs and image patterns, then highlights detected matches with red rectangles.
 
-The current example demonstrates real-time edge detection using a webcam.
+> Exploring computer vision through practical experiments, one frame at a time. 🚀
 
-- 📷 **Live Webcam Feed** — Capture video from your default camera.
-- 🔍 **Laplacian Edge Detection** — Detect rapid changes in image intensity.
-- ➡️ **Sobel X** — Detect horizontal intensity changes.
-- ⬇️ **Sobel Y** — Detect vertical intensity changes.
-- 🎯 **Sobel XY** — Explore combined directional gradients.
-- ⚡ **Canny Edge Detection** — Detect edges using the Canny algorithm.
-- 🖥️ **Real-Time Visualization** — Display the original camera feed and processed frames in separate windows.
+---
+
+## ✨ Features
+
+- 📷 **Live Camera Feed** — Capture real-time video using OpenCV.
+- 🅿️ **Parking Sign Matching** — Search for predefined image templates in camera frames.
+- 🔍 **Template Matching** — Use `cv2.matchTemplate()` to compare image patterns.
+- ⚫ **Grayscale Processing** — Convert camera frames and templates to grayscale.
+- 🎯 **Similarity Threshold** — Filter matches using a configurable threshold.
+- 🟥 **Visual Detection** — Draw red rectangles around detected matches.
+- ⚡ **Real-Time Processing** — Continuously process incoming camera frames.
+
+---
+
+## 🧠 How It Works
+
+The application follows this basic workflow:
+
+1. **Capture:** Read a frame from the webcam.
+2. **Preprocess:** Convert the camera frame to grayscale.
+3. **Load Templates:** Read predefined parking-related images in grayscale.
+4. **Match:** Compare each template against the camera frame using `cv2.matchTemplate()`.
+5. **Filter:** Select matching locations whose scores meet the configured threshold.
+6. **Visualize:** Draw red rectangles around the detected regions.
+7. **Repeat:** Continue processing frames until the user exits.
+
+### Matching Method
+
+The project uses:
+
+```python
+cv2.matchTemplate(
+    frame_gray,
+    img_template,
+    cv2.TM_CCOEFF_NORMED
+)
+```
+
+`cv2.TM_CCOEFF_NORMED` calculates normalized correlation scores between the template and image regions.
+
+The current threshold is:
+
+```python
+theeshhold = 0.55
+```
+
+Locations with scores greater than or equal to this value are considered matches by the current implementation.
+
+**Note:** Template matching is not a trained object-detection model. Detection quality depends on the templates, camera conditions, image scale, and similarity threshold.
+
+---
 
 ## 🛠️ Technologies
 
 | Technology | Purpose |
 |---|---|
-| Python | Programming language |
-| OpenCV (`cv2`) | Image processing and computer vision |
-| NumPy | Numerical computing and array operations |
+| Python 3 | Application logic |
+| OpenCV (`cv2`) | Camera capture, image processing, template matching, and visualization |
+| NumPy | Processing template-matching results |
+
+---
 
 ## 📋 Requirements
 
 Before running the project, make sure you have:
 
 - Python 3
-- A working webcam
-- pip
-- OpenCV
-- NumPy
+- `pip`
+- A working webcam or accessible camera device
+- The required template images
+- OpenCV and NumPy
+
+---
 
 ## 🚀 Getting Started
 
@@ -45,20 +96,20 @@ git clone https://github.com/mohammadtahataheri/OpenCV-learn.git
 cd OpenCV-learn
 ```
 
-### 2. Create a Virtual Environment (Recommended)
+### 2. Create a Virtual Environment
 
-**Linux / macOS:**
+**Linux / macOS**
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-**Windows:**
+**Windows**
 
 ```powershell
-python -m venv venv
-venv\Scripts\activate
+python -m venv .venv
+.venv\Scripts\activate
 ```
 
 ### 3. Install Dependencies
@@ -67,60 +118,106 @@ venv\Scripts\activate
 python -m pip install opencv-python numpy
 ```
 
-### 4. Run the Project
+### 4. Add the Template Images
+
+The application references the following image files:
+
+```text
+images.png
+images (1).png
+Free_parking_sign_cropped.jpg
+Pasted image.png
+download.jpeg
+download1.jpeg
+download2.jpeg
+download3.jpeg
+download4.jpeg
+OIP-2000455660.jpg
+OIP-2051233341.jpg
+```
+
+Place the required image files in the same directory as `main.py`, or update the paths in the `templates` list to match their actual locations.
+
+The program skips templates that cannot be loaded, so missing image files will not be available for matching.
+
+### 5. Run the Application
 
 ```bash
 python main.py
 ```
 
-Make sure your webcam is connected and accessible before running the program.
+The application will attempt to open camera device `0` and display the processed video in an OpenCV window.
+
+---
 
 ## 🎮 Controls
 
-- The program displays the webcam feed alongside several edge-detection outputs.
-- Press **`Esc`** to exit the application.
+| Key | Action |
+|---|---|
+| `Esc` | Exit the application |
+
+---
 
 ## 📂 Project Structure
 
+The current repository contains the following files:
+
 ```text
 OpenCV-learn/
-├── main.py       # Webcam-based edge detection example
-└── README.md     # Project documentation
+├── main.py
+└── README.md
 ```
 
-## 📚 Learning Goals
+The template images are external runtime assets referenced by `main.py` and must be supplied separately unless they are added to the repository.
 
-This project is part of my journey toward understanding computer vision, including:
+---
 
-- Image processing fundamentals
+## 📚 Learning Objectives
+
+This project provides practical experience with:
+
 - Real-time video capture
-- Image gradients and edge detection
-- Laplacian and Sobel operators
-- Canny edge detection
-- Building practical projects with Python and OpenCV
+- Grayscale image processing
+- Image templates and pattern matching
+- Normalized correlation
+- Threshold-based match selection
+- Drawing detection results on video frames
+- Handling multiple image templates
+- Building computer vision applications with Python
 
-More examples and experiments may be added as the project evolves.
+---
 
 ## 🗺️ Roadmap
 
-- [x] Capture video from a webcam
-- [x] Experiment with Laplacian edge detection
-- [x] Experiment with Sobel operators
-- [x] Implement Canny edge detection
-- [ ] Add image loading and saving examples
-- [ ] Explore color spaces and image transformations
-- [ ] Experiment with contours and object detection
+Potential improvements for future versions:
 
-## 🤝 Contributions
+- [ ] Load and cache templates before entering the main loop.
+- [ ] Handle camera initialization and frame-capture failures.
+- [ ] Add configurable matching thresholds.
+- [ ] Reduce duplicate and overlapping detections.
+- [ ] Display matching confidence scores.
+- [ ] Improve detection across different image scales.
+- [ ] Add a configuration file for template paths.
+- [ ] Benchmark performance and optimize frame processing.
+- [ ] Experiment with more robust object-detection approaches.
 
-Suggestions, bug reports, and improvements are welcome! Feel free to open an issue or submit a pull request.
+---
 
 ## 👨‍💻 Author
 
 **Mohammad Taha Taheri**
 
-GitHub: [@mohammadtahataheri](https://github.com/mohammadtahataheri)
+- GitHub Profile: [@mohammadtahataheri](https://github.com/mohammadtahataheri)
+- Repository: [OpenCV-learn](https://github.com/mohammadtahataheri/OpenCV-learn)
+
+---
 
 ## 📄 License
 
-No license has been specified for this repository yet. Please check the repository for licensing information before reusing or distributing its code.
+Check the repository for an existing `LICENSE` file to determine the applicable licensing terms.
+
+---
+
+<p align="center">
+  <b>Learning computer vision by building real projects. 🚀</b>
+</p>
