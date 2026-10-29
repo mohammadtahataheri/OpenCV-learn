@@ -3,27 +3,37 @@ import numpy as np
 
 cap = cv2.VideoCapture(0)
 
+templates = [
+    "images.png",
+    "images (1).png",
+    "Free_parking_sign_cropped.jpg",
+    "Pasted image.png"
+]
+
+theeshhold = 0.38
 
 while True:
-    _,frame = cap.read()
+    ret , frame = cap.read()
 
-    lapecasion = cv2.Laplacian(frame,cv2.CV_8U)
-    # sobelx = cv2.Sobel(frame,1,0,cv2.CV_8U,ksize=5)
-    sobelx = cv2.Sobel(frame, cv2.CV_8U, 1, 0, ksize=5)
-    sobely = cv2.Sobel(frame, cv2.CV_8U, 0, 1, ksize=5)
-    sobela = cv2.Sobel(frame, cv2.CV_8U, 1, 1, ksize=5)
-    canny = cv2.Canny(frame,100,200)
+    frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    for template_path in templates:
+        img_template = cv2.imread(template_path, 0)
 
-    
-    cv2.imshow("frame",frame)
-    cv2.imshow("lape",lapecasion)
-    cv2.imshow("sobel x",sobelx)
-    cv2.imshow("sobel y", sobely)
-    cv2.imshow("sobel a", sobela)
-    cv2.imshow("canny", canny)
-    if (cv2.waitKey(5) & 0xFF) == 27:
+
+        h, w = img_template.shape
+
+        if h > frame_gray.shape[0] or w > frame_gray.shape[1]:
+            continue
+
+        res = cv2.matchTemplate(frame_gray,img_template,cv2.TM_CCOEFF_NORMED)
+
+        loc = np.where(res >= theeshhold)
+
+        for pt in zip(*loc[::-1]):
+            cv2.rectangle(frame,pt,(pt[0] + w, pt[1] + h),(0,0,255),2)
+
+    cv2.imshow("park",frame)
+    if cv2.waitKey(5) & 0xFF == 27:
         break
-
-
-cv2.destroyAllWindows()
 cap.release()
+cv2.destroyAllWindows()
