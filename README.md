@@ -143,7 +143,7 @@ The program skips templates that cannot be loaded, so missing image files will n
 ### 5. Run the Application
 
 ```bash
-python main.py
+python launcher.py
 ```
 
 The application will attempt to open camera device `0` and display the processed video in an OpenCV window.
