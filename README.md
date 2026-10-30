@@ -24,6 +24,7 @@ The current implementation uses a webcam to search for predefined parking-relate
 - 🎯 **Similarity Threshold** — Filter matches using a configurable threshold.
 - 🟥 **Visual Detection** — Draw red rectangles around detected matches.
 - ⚡ **Real-Time Processing** — Continuously process incoming camera frames.
+- 🗔 **App launcher** _ An GUI Launcher
 
 ---
 
