@@ -1,8 +1,19 @@
 import cv2
 import numpy as np
+import time
+
+
+
+
+
 
 def run_park():
+
+    cv2.setUseOptimized(True)
+
     cap = cv2.VideoCapture(0)
+    prev_time = time.time()
+    fps = 0
 
 
     templates = [
@@ -25,6 +36,9 @@ def run_park():
     while True:
 
         ret, frame = cap.read()
+        current_time = time.time()
+        fps = 1 / (current_time - prev_time)
+        prev_time = current_time    
 
         frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -47,6 +61,17 @@ def run_park():
             for pt in zip(*loc[::-1]):
                 cv2.rectangle(frame, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
 
+
+
+        cv2.putText(
+            frame,
+            f"FPS: {int(fps)}",
+            (20, 40),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            1,
+            (0, 255, 0),
+            2
+        )
         cv2.imshow("park", frame)
 
         if cv2.waitKey(5) & 0xFF == 27:
