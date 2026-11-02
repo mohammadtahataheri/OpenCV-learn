@@ -12,11 +12,14 @@ def run_park():
     cv2.setUseOptimized(True)
 
     cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Camera is not available!")
+        return
     prev_time = time.time()
     fps = 0
 
 
-    templates = [
+    template_paths = [
         "./src/images.png",
         "./src/images (1).png",
         "./src/Free_parking_sign_cropped.jpg",
@@ -33,6 +36,14 @@ def run_park():
 
     theeshhold = 0.55
 
+    templates = []
+
+    for path in template_paths:
+        img = cv2.imread(path, cv2.IMREAD_GRAYSCALE)
+
+        if img is not None:
+            templates.append(img)
+
     while True:
 
         ret, frame = cap.read()
@@ -42,11 +53,10 @@ def run_park():
 
         frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        for template_path in templates:
+        for img_template in templates:
 
-            img_template = cv2.imread(template_path, 0)
             if img_template is None:
-                print(template_path)
+                print(img_template)
                 continue
 
             h, w = img_template.shape
