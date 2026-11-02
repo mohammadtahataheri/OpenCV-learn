@@ -1,48 +1,46 @@
 # 🅿️ OpenCV Learn
 
-### Real-Time Parking Sign Detection with Python & OpenCV
+### Real-Time Computer Vision with Python & OpenCV
 
-[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
-[![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8?logo=opencv&logoColor=white)](https://opencv.org/)
-[![NumPy](https://img.shields.io/badge/NumPy-Numerical%20Computing-013243?logo=numpy&logoColor=white)](https://numpy.org/)
-[![Status](https://img.shields.io/badge/Status-In%20Development-orange)](https://github.com/mohammadtahataheri/OpenCV-learn)
+**OpenCV Learn** is a practical computer vision project built with Python, OpenCV, and NumPy. It explores real-time image processing, template matching, and camera-based detection through hands-on development.
 
-**OpenCV Learn** is a practical computer vision project that explores real-time image processing and template matching using Python, OpenCV, and NumPy.
+The current implementation focuses on detecting predefined parking-related signs and patterns from a live camera feed.
 
-The current implementation uses a webcam to search for predefined parking-related signs and image patterns, then highlights detected matches with red rectangles.
+The project also includes a desktop interface prototype built with CustomTkinter.
 
-> Exploring computer vision through practical experiments, one frame at a time. 🚀
+> Learning computer vision by building, experimenting, and optimizing real-world applications. 🚀
 
 ---
 
 ## ✨ Features
 
-- 📷 **Live Camera Feed** — Capture real-time video using OpenCV.
-- 🅿️ **Parking Sign Matching** — Search for predefined image templates in camera frames.
-- 🔍 **Template Matching** — Use `cv2.matchTemplate()` to compare image patterns.
-- ⚫ **Grayscale Processing** — Convert camera frames and templates to grayscale.
-- 🎯 **Similarity Threshold** — Filter matches using a configurable threshold.
-- 🟥 **Visual Detection** — Draw red rectangles around detected matches.
-- ⚡ **Real-Time Processing** — Continuously process incoming camera frames.
-- 🗔 **App launcher** _ An GUI Launcher
+- 📷 **Live Camera Processing** — Capture and process video frames in real time.
+- 🅿️ **Parking Sign Detection** — Search for predefined parking-related patterns.
+- 🔍 **Template Matching** — Compare image regions using OpenCV's `matchTemplate()`.
+- ⚫ **Grayscale Processing** — Convert frames into grayscale for template comparison.
+- 🎯 **Configurable Threshold** — Control the similarity threshold for matching.
+- 🟥 **Detection Visualization** — Highlight detected regions with bounding rectangles.
+- ⚡ **FPS Counter** — Display approximate processing frame rate.
+- 🖥️ **Desktop Interface** — Launch the application through a CustomTkinter interface.
+- 🚀 **Optimized OpenCV** — Enable OpenCV's optimized processing functions.
 
 ---
 
 ## 🧠 How It Works
 
-The application follows this basic workflow:
+The current detection pipeline follows these steps:
 
-1. **Capture:** Read a frame from the webcam.
-2. **Preprocess:** Convert the camera frame to grayscale.
-3. **Load Templates:** Read predefined parking-related images in grayscale.
-4. **Match:** Compare each template against the camera frame using `cv2.matchTemplate()`.
-5. **Filter:** Select matching locations whose scores meet the configured threshold.
-6. **Visualize:** Draw red rectangles around the detected regions.
-7. **Repeat:** Continue processing frames until the user exits.
+1. **Capture:** Read frames from the camera.
+2. **Preprocessing:** Convert the captured frame to grayscale.
+3. **Template Loading:** Load predefined parking sign images.
+4. **Matching:** Compare templates against the camera frame.
+5. **Thresholding:** Filter matching locations based on similarity scores.
+6. **Visualization:** Draw rectangles around detected regions.
+7. **Performance Monitoring:** Calculate and display FPS.
 
-### Matching Method
+### Template Matching
 
-The project uses:
+The project currently uses:
 
 ```python
 cv2.matchTemplate(
@@ -52,17 +50,15 @@ cv2.matchTemplate(
 )
 ```
 
-`cv2.TM_CCOEFF_NORMED` calculates normalized correlation scores between the template and image regions.
-
-The current threshold is:
+The matching threshold is currently set to:
 
 ```python
-theeshhold = 0.55
+threshold = 0.55
 ```
 
-Locations with scores greater than or equal to this value are considered matches by the current implementation.
+Locations with matching scores equal to or greater than the threshold are considered potential matches.
 
-**Note:** Template matching is not a trained object-detection model. Detection quality depends on the templates, camera conditions, image scale, and similarity threshold.
+**Note:** Template matching is not a trained object detection model. Its results depend on image scale, lighting, camera conditions, template quality, and the selected threshold.
 
 ---
 
@@ -70,30 +66,32 @@ Locations with scores greater than or equal to this value are considered matches
 
 | Technology | Purpose |
 |---|---|
-| Python 3 | Application logic |
-| OpenCV (`cv2`) | Camera capture, image processing, template matching, and visualization |
-| NumPy | Processing template-matching results |
+| Python | Main programming language |
+| OpenCV | Image processing and computer vision |
+| NumPy | Numerical operations and matching results |
+| CustomTkinter | Desktop graphical interface |
 
 ---
 
 ## 📋 Requirements
 
-Before running the project, make sure you have:
-
 - Python 3
-- `pip`
-- A working webcam or accessible camera device
-- The required template images
-- OpenCV and NumPy
+- pip
+- OpenCV
+- NumPy
+- CustomTkinter
+- A working camera device
+- Required template images
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Installation
 
 ### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/mohammadtahataheri/OpenCV-learn.git
+
 cd OpenCV-learn
 ```
 
@@ -103,6 +101,7 @@ cd OpenCV-learn
 
 ```bash
 python3 -m venv .venv
+
 source .venv/bin/activate
 ```
 
@@ -110,97 +109,111 @@ source .venv/bin/activate
 
 ```powershell
 python -m venv .venv
+
 .venv\Scripts\activate
 ```
 
 ### 3. Install Dependencies
 
 ```bash
-python -m pip install opencv-python numpy
+python -m pip install opencv-python numpy customtkinter
 ```
 
-### 4. Add the Template Images
+---
 
-The application references the following image files:
+## 📁 Project Structure
 
 ```text
-images.png
-images (1).png
-Free_parking_sign_cropped.jpg
-Pasted image.png
-download.jpeg
-download1.jpeg
-download2.jpeg
-download3.jpeg
-download4.jpeg
-OIP-2000455660.jpg
-OIP-2051233341.jpg
+OpenCV-learn/
+│
+├── src/
+│   ├── images.png
+│   ├── images (1).png
+│   ├── Free_parking_sign_cropped.jpg
+│   ├── Pasted image.png
+│   ├── download.jpeg
+│   ├── download1.jpeg
+│   ├── download2.jpeg
+│   ├── download3.jpeg
+│   ├── download4.jpeg
+│   ├── OIP-2000455660.jpg
+│   └── OIP-2051233341.jpg
+│
+├── launcher.py
+├── main.py
+└── README.md
 ```
 
-Place the required image files in the same directory as `main.py`, or update the paths in the `templates` list to match their actual locations.
+The `src/` directory contains the image templates used by the detection system.
 
-The program skips templates that cannot be loaded, so missing image files will not be available for matching.
+---
 
-### 5. Run the Application
+## ▶️ Running the Application
+
+Start the desktop interface:
 
 ```bash
 python launcher.py
 ```
 
-The application will attempt to open camera device `0` and display the processed video in an OpenCV window.
+The application launches the desktop interface and starts the camera-based detection process.
 
----
+The current implementation uses camera device `0` by default.
 
-## 🎮 Controls
+### Controls
 
 | Key | Action |
 |---|---|
-| `Esc` | Exit the application |
+| `ESC` | Exit the camera processing window |
 
 ---
 
-## 📂 Project Structure
+## ⚡ Performance
 
-The current repository contains the following files:
+The project uses OpenCV's optimization support:
 
-```text
-OpenCV-learn/
-├── main.py
-└── README.md
+```python
+cv2.setUseOptimized(True)
 ```
 
-The template images are external runtime assets referenced by `main.py` and must be supplied separately unless they are added to the repository.
+An FPS counter is also displayed during camera processing.
 
----
-
-## 📚 Learning Objectives
-
-This project provides practical experience with:
-
-- Real-time video capture
-- Grayscale image processing
-- Image templates and pattern matching
-- Normalized correlation
-- Threshold-based match selection
-- Drawing detection results on video frames
-- Handling multiple image templates
-- Building computer vision applications with Python
+Performance depends on the camera resolution, number and size of templates, hardware, and processing conditions.
 
 ---
 
 ## 🗺️ Roadmap
 
-Potential improvements for future versions:
+Planned improvements and experiments:
 
-- [ ] Load and cache templates before entering the main loop.
-- [ ] Handle camera initialization and frame-capture failures.
-- [ ] Add configurable matching thresholds.
-- [ ] Reduce duplicate and overlapping detections.
-- [ ] Display matching confidence scores.
-- [ ] Improve detection across different image scales.
-- [ ] Add a configuration file for template paths.
-- [ ] Benchmark performance and optimize frame processing.
-- [ ] Experiment with more robust object-detection approaches.
+- [ ] Improve frame-processing performance.
+- [ ] Cache templates instead of loading them repeatedly.
+- [ ] Improve camera error handling.
+- [ ] Add duplicate detection filtering.
+- [ ] Support multi-scale template matching.
+- [ ] Add object tracking.
+- [ ] Implement motion detection.
+- [ ] Add image and video input support.
+- [ ] Build a performance monitoring system.
+- [ ] Improve the desktop interface.
+- [ ] Develop a modular computer vision architecture.
+
+---
+
+## 🎯 Learning Objectives
+
+This project is part of an ongoing journey into computer vision.
+
+Main learning areas:
+
+- Real-time video processing
+- Image preprocessing
+- Template matching algorithms
+- Grayscale image processing
+- Similarity measurement
+- Camera handling with OpenCV
+- Performance optimization
+- Python desktop application development
 
 ---
 
@@ -208,17 +221,19 @@ Potential improvements for future versions:
 
 **Mohammad Taha Taheri**
 
-- GitHub Profile: [@mohammadtahataheri](https://github.com/mohammadtahataheri)
+- GitHub: [@mohammadtahataheri](https://github.com/mohammadtahataheri)
 - Repository: [OpenCV-learn](https://github.com/mohammadtahataheri/OpenCV-learn)
 
 ---
 
 ## 📄 License
 
-Check the repository for an existing `LICENSE` file to determine the applicable licensing terms.
+No license file is currently included in the repository. Licensing terms have not yet been specified.
 
 ---
 
 <p align="center">
-  <b>Learning computer vision by building real projects. 🚀</b>
+  <b>Built with Python, OpenCV & curiosity.</b>
+  <br>
+  Exploring Computer Vision, one frame at a time. 🚀
 </p>
