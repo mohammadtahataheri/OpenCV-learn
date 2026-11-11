@@ -70,6 +70,7 @@ def run_park():
 
             for pt in zip(*loc[::-1]):
                 cv2.rectangle(frame, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+                cv2.putText(frame, 'Here is parking!',(225,300),font,1.5,(255,0,0),1)
 
 
 
