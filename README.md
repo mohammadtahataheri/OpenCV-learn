@@ -6,6 +6,16 @@
 
 The project is part of my journey into computer vision, image processing, and performance optimization.
 
+<p align="center">
+  <img src="assets/Screenshot From 2026-11-11 17-29-03.png" width="700">
+</p>
+
+
+<p align="center">
+  <img src="assets/Screenshot From 2026-11-11 17-30-39.png" width="700">
+</p>
+
+
 ---
 
 ## ✨ Features
